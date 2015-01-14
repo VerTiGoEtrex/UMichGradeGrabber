@@ -16,3 +16,5 @@ Replace the following parameters:
 Depending on how complex your password is, you might need to use quotes or escaping to get the special characters to parse correctly
 
 You can test that it's setup correctly by modifying "oldtranscript.txt" and running the script. You should recieve an e-mail containing a diff between your old and new transcripts.
+
+Improved from here: https://github.com/ethanjyx/wolverineGradeGraber
