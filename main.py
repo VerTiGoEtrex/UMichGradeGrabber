@@ -1,5 +1,5 @@
 from sender import EmailSender
-from graber import GradeGraber
+from grabber import GradeGrabber
 import time
 import sys
 import os
@@ -16,8 +16,8 @@ for idx, arg in enumerate(sys.argv):
 
 while True:
     diffTool = difflib.HtmlDiff()
-    graber = GradeGraber()
-    graber.grab(sys.argv[1], sys.argv[2], curTranscript)
+    grabber = GradeGrabber()
+    grabber.grab(sys.argv[1], sys.argv[2], curTranscript)
 
     if os.path.isfile(oldTranscript): # old transcript exists
         if not filecmp.cmp(curTranscript, oldTranscript): # new grades have been entered

@@ -3,7 +3,7 @@ import selenium.webdriver.support.ui as ui
 from selenium import webdriver
 import re
 
-class GradeGraber:
+class GradeGrabber:
 	def __init__(self):
 		#self.uniqname = uniqname
 		#self.password = password
