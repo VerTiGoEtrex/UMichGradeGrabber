@@ -7,17 +7,29 @@ import filecmp
 import difflib
 import shutil
 import re
+import getpass
 
 curTranscript = 'transcript.txt'
 oldTranscript = 'oldtranscript.txt'
 
-for idx, arg in enumerate(sys.argv):
-    print str(idx) + ' ' + str(arg)
+if len(sys.argv) != 4:
+    print "Incorrect number of arguments: please invoke with UNIQNAME GMAIL_SENDER MAIL_RECEIVER"
+    sys.exit(1)
+
+umichPass = getpass.getpass(prompt='UMich password: ');
+if (umichPass == "" or umichPass == None):
+    print "UMich password was empty"
+    sys.exit(1)
+senderPass = getpass.getpass(prompt='GMail password (or blank for same as umich)');
+if(senderPass == "" or senderPass == None):
+    senderPass = umichPass
 
 while True:
     diffTool = difflib.HtmlDiff()
     grabber = GradeGrabber()
-    grabber.grab(sys.argv[1], sys.argv[2], curTranscript)
+    if not grabber.grab(sys.argv[1], umichPass, curTranscript):
+        print "Long sleep (20 minutes)"
+        time.sleep(20 * 60)
 
     if os.path.isfile(oldTranscript): # old transcript exists
         if not filecmp.cmp(curTranscript, oldTranscript): # new grades have been entered
@@ -37,13 +49,11 @@ while True:
                 for line in difflib.context_diff(oldFile.readlines(), curFile.readlines()):
                     print line
             print "GRADES POSTED, SENDING EMAIL"
-            emailSender = EmailSender(sys.argv[3], sys.argv[4], sys.argv[5])
+            emailSender = EmailSender(sys.argv[2], senderPass, sys.argv[3])
             emailSender.sendNotification(msg)
             print "EMAIL SENT"
-            #os.system('rm oldtranscript.txt; mv transcript.txt oldtranscript.txt')
             shutil.copyfile('transcript.txt', 'oldtranscript.txt')
     else: # old transcript does not exist, which means this is the first time running this script
-            #os.system('mv transcript.txt oldtranscript.txt')
             shutil.copyfile('transcript.txt', 'oldtranscript.txt')
 
-    time.sleep(10)
+    time.sleep(300) # Sleep for 5 minutes
