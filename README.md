@@ -5,7 +5,7 @@ Notifies you of updated grades by e-mail (updates every 5 minutes)
 
 Requires Selenium (pip install selenium)
 
-In command line: `python main.py UNIQNAME PW EMAIL_SENDER EMAIL_PW EMAIL_RECEIVER BROWSER_TYPE`
+In command line: `python main.py UNIQNAME EMAIL_SENDER EMAIL_PW EMAIL_RECEIVER BROWSER_TYPE`
 Replace the following parameters:
 * `UNIQNAME` is your umich unique name
 * `EMAIL_SENDER` is gmail account name (It must be a gmail-based address currently -- this includes UMich addresses)
