@@ -1,7 +1,7 @@
 UMichGradeGrabber
 =================
 
-Notifies you of updated grades
+Notifies you of updated grades by e-mail (updates every 5 minutes)
 
 Requires Selenium (pip install selenium)
 
