@@ -14,4 +14,8 @@ Replace the following parameters:
 
 You can test that it's setup correctly by modifying "oldtranscript.txt" and running the script. You should receive an e-mail containing a diff between your old and new transcripts.
 
+You will receive an e-mail looking like this. Have a good laugh at my garbage GPA too ;)
+
+![Example Email](https://raw.githubusercontent.com/vertigoetrex/umichgradegrabber/master/readmeresources/emailExample.png "Example E-mail")
+
 Improved from here: https://github.com/ethanjyx/wolverineGradeGraber
