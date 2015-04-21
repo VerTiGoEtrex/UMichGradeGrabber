@@ -2,6 +2,7 @@ import time
 import selenium.webdriver.support.ui as ui
 from selenium import webdriver
 import re
+import platform
 
 class GradeGrabber:
     def __init__(self):
@@ -10,11 +11,22 @@ class GradeGrabber:
         self.url = 'https://csprod.dsc.umich.edu/services/student'
         return
 
-    def grab(self, uniqname, password, filename):
+    def grab(self, uniqname, password, filename, bType):
         try:
             # Init browser
-            self.browser = webdriver.Firefox()
-            #self.browser = webdriver.Chrome()
+            if bType.lower() == "f":
+                self.browser = webdriver.Firefox()
+            elif bType.lower() == "c":
+                if platform.system() == "Linux":
+                    self.browser = webdriver.Chrome(executable_path='./chromeDriver_linux')
+                elif platform.system() == "Darwin":
+                    self.browser = webdriver.Chrome(executable_path='./chromeDriver_osx')
+                elif platform.system() == "Linux":
+                    self.browser = webdriver.Chrome(executable_path='./chromeDriver_win.exe')
+                else:
+                    raise Exception("Unsupported Platform: {}".format(platform.system()))
+            else:
+                raise Exception("Invalid browser type!")
 
             # Get Wolverine Access student business page
             self.browser.get(self.url)
@@ -45,8 +57,9 @@ class GradeGrabber:
             results = self.browser.find_elements_by_xpath("//*[contains(@id, 'win0divDERIVED_TSCRPT_TSCRPT_COMP_DATA')]")
 
             self.writeFile(results, filename)
-        except:
+        except Exception, e:
             print "Error occured while grabbing transcript. Wolverine access is probably down."
+            print e
             self.closeBrowser()
             return False
         self.closeBrowser()

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from sender import EmailSender
 from grabber import GradeGrabber
 import time
@@ -12,8 +14,12 @@ import getpass
 curTranscript = 'transcript.txt'
 oldTranscript = 'oldtranscript.txt'
 
-if len(sys.argv) != 4:
-    print "Incorrect number of arguments: please invoke with UNIQNAME GMAIL_SENDER MAIL_RECEIVER"
+if len(sys.argv) != 5:
+    print "Incorrect number of arguments: please invoke with UNIQNAME GMAIL_SENDER MAIL_RECEIVER BROWSERTYPE(f, c)"
+    sys.exit(1)
+
+if sys.argv[4].lower() not in ["f", "c"]:
+    print "Invalid browser type"
     sys.exit(1)
 
 umichPass = getpass.getpass(prompt='UMich password: ');
@@ -27,7 +33,7 @@ if(senderPass == "" or senderPass == None):
 while True:
     diffTool = difflib.HtmlDiff()
     grabber = GradeGrabber()
-    if not grabber.grab(sys.argv[1], umichPass, curTranscript):
+    if not grabber.grab(sys.argv[1], umichPass, curTranscript, sys.argv[4]):
         print "Long sleep (20 minutes)"
         time.sleep(20 * 60)
 
