@@ -21,7 +21,7 @@ class GradeGrabber:
                     self.browser = webdriver.Chrome(executable_path='./chromeDriver_linux')
                 elif platform.system() == "Darwin":
                     self.browser = webdriver.Chrome(executable_path='./chromeDriver_osx')
-                elif platform.system() == "Linux":
+                elif platform.system() == "Windows":
                     self.browser = webdriver.Chrome(executable_path='./chromeDriver_win.exe')
                 else:
                     raise Exception("Unsupported Platform: {}".format(platform.system()))
